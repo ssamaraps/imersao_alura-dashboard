@@ -1,4 +1,10 @@
-'use client';
+------------------------------------------------------------
+
+
+
+
+
+??????????use client';
 
 import { useState, useEffect } from 'react';
 
@@ -9,17 +15,7 @@ import { useState, useEffect } from 'react';
 export interface ResponsePokemonList {
   page: number;
   pageSize: number;
-  count: number;
-  totalCount: number;
-  data: Pokemon[];
-}
 
-export interface Pokemon {
-  id: string;
-  name: string;
-  supertype: string;
-  subtypes: string[];
-  level: string;
   hp: string;
   types: string[];
   evolvesFrom: string;
