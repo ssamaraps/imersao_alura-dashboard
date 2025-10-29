@@ -1,3 +1,87 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    // --- Lógica de login lendo variáveis do .env ---
+    const emailCorreto = process.env.NEXT_PUBLIC_TEST_EMAIL;
+    const senhaCorreta = process.env.NEXT_PUBLIC_TEST_PASSWORD;
+
+    if (email === emailCorreto && password === senhaCorreta) {
+      const token = 'token-simulado-login-ok';
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', email);
+      router.push('/blackjack');
+    } else {
+      setError('E-mail ou senha inválidos.');
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-green-300 via-blue-400 to-blue-600 p-6">
+      <div className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
+        <h1 className="text-3xl font-bold mb-2 text-blue-800">
+          Pokémon TCG Explorer
+        </h1>
+        <p className="text-gray-600 mb-6">Faça login para continuar</p>
+
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            type="email"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="p-3 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+
+          <input
+            type="password"
+            placeholder="Sua senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="p-3 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition"
+          >
+            Entrar
+          </button>
+        </form>
+
+        <p className="mt-6 text-sm text-gray-500">
+          © 2025 Pokémon TCG Explorer. Todos os direitos reservados.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
 
 'use client';
 
